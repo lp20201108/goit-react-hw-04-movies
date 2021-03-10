@@ -1,0 +1,28 @@
+.castList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.castImage{
+    max-width: 200px;
+    border-radius: 5%;
+    min-height: 300px;
+}
+
+
+.castCharacter{
+    color:orange;
+    font-weight: 500;
+}
+
+
+.castListItem{
+    max-width: 200px;
+
+}
+
+.castError  {
+    color: orange;
+    font-weight: 700;
+}

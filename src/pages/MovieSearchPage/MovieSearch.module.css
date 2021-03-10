@@ -1,0 +1,63 @@
+
+
+.searchContainer{
+    
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.submitForm{
+text-align: center;
+}
+
+
+input {
+  margin-top: 30px;
+  width: 350px;
+  height: 45px;
+  text-align: center;
+  padding: 0 10px;
+  margin-right: 10px;
+  outline: none;
+  border: none;
+  font-size: 28px;
+  border-bottom: 1px solid #ff8008;
+  background-color: white;
+}
+
+
+input:hover {
+ box-shadow: 9px 2px 36px -10px #ffc837;
+  border-radius: 5%;
+}
+
+
+.submitBtn {
+  background-image: linear-gradient(
+    to right,
+    #ff8008 0%,
+    #ffc837 51%,
+    #ff8008 100%
+  );
+}
+.submitBtn {
+  margin: 10px;
+  padding: 10px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+}
+
+.submitBtn:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+  outline: none;
+  border: none;
+}

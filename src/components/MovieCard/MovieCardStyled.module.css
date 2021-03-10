@@ -1,0 +1,28 @@
+.movieCardContainer{
+
+padding: 20px;
+}
+
+.moviePoster {
+  border-radius: 14px;
+  margin-right: 20px;
+  min-width: 250px;
+}
+.title {
+  margin-bottom: 20px;
+}
+
+.overview {
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+.movieGenres {
+margin-right: 10px;
+font-weight:600;
+color: rgb(177, 100, 49);
+}
+
+.genres{
+font-size: 20px;
+font-weight: 700;
+}

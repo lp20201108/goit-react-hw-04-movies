@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import MoviesList from "../../components/MovieList/MovieList";
 import { fetchTrending } from "../../services/fetchApi";
+import styles from "./HomePageStyled.module.css";
 
 export default class HomePage extends Component {
   state = {
@@ -14,10 +15,9 @@ export default class HomePage extends Component {
   render() {
     const { movies } = this.state;
     return (
-      <>
-        <h2>Trending today</h2>
+      <div className={styles.movieContainer}>
         <MoviesList movies={movies} />
-      </>
+      </div>
     );
   }
 }

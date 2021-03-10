@@ -1,19 +1,34 @@
 import { Link, withRouter } from "react-router-dom";
+import noImageAvailable from "../../components/images/noImageAvailable.jpg";
+import styles from "./MovieListStyled.module.css";
 
 const MoviesList = ({ movies, location }) => {
+  console.log(movies);
   return (
-    <ul>
-      {movies.map((movie) => (
-        <li key={movie.id}>
+    <ul className={styles.movieList}>
+      {movies.map(({ id, poster_path, title, name, vote_average }) => (
+        <li key={id} className={styles.movieListItem}>
           <Link
             to={{
-              pathname: `/movies/${movie.id}`,
+              pathname: `/movies/${id}`,
               state: {
                 from: location,
               },
             }}
           >
-            {movie.title || movie.name}
+            <img
+              className={styles.movieListImage}
+              src={
+                poster_path
+                  ? `https://image.tmdb.org/t/p/w300${poster_path}`
+                  : noImageAvailable
+              }
+              alt={title}
+            />
+            <span className={styles.titleContainer}>
+              <p className={styles.movieTitle}> {title || name}</p>
+              <p className={styles.movieRanking}>{vote_average}</p>
+            </span>
           </Link>
         </li>
       ))}

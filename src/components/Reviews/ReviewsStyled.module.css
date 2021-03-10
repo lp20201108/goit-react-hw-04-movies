@@ -1,0 +1,14 @@
+
+
+.reviewsListItem{
+    max-width: 700px;
+}
+.reviewsAuthor{
+    color:orange
+}
+
+
+.reviewsError  {
+    color:orange;
+    font-weight: 700;
+}

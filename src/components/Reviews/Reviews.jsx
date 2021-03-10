@@ -1,19 +1,21 @@
-import React from "react";
+import styles from "./ReviewsStyled.module.css";
 
 const Reviews = ({ reviews }) => {
   return (
     <>
       {reviews.length ? (
-        <ul>
+        <ul className={styles.reviewsList}>
           {reviews.map(({ author, content, id }) => (
-            <li key={id}>
-              <h3>Author: {author}</h3>
-              <p>Review: {content}</p>
+            <li className={styles.reviewsListItem} key={id}>
+              <h3>
+                Author: <span className={styles.reviewsAuthor}>{author} </span>
+              </h3>
+              <p className={styles.reviews}> {content}</p>
             </li>
           ))}
         </ul>
       ) : (
-        <h2>No reviews availables</h2>
+        <h2 className={styles.reviewsError}>No reviews availables</h2>
       )}
     </>
   );

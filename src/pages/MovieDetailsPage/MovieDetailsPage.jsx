@@ -5,6 +5,7 @@ import MovieCard from "../../components/MovieCard/MovieCard";
 import Reviews from "../../components/Reviews";
 import routes from "../../routes";
 import { fetchData } from "../../services/fetchApi";
+import styles from "./MovieDetailsPage.module.css";
 
 export default class MovieDetailsPage extends Component {
   state = {
@@ -31,15 +32,22 @@ export default class MovieDetailsPage extends Component {
     const { url, path } = this.props.match;
     return (
       <>
-        <button type="button" onClick={this.handleGoBack}>
+        <button
+          className={styles.backBtn}
+          type="button"
+          onClick={this.handleGoBack}
+        >
           Go back
         </button>
 
         <MovieCard {...movie} />
 
-        <h3>More information</h3>
+        <h3 className={styles.moreInfo}>More information</h3>
+
         <p>
           <NavLink
+            className={styles.NavLink}
+            activeClassName={styles.activeNavLink}
             exact
             to={{
               pathname: `${url}/cast`,
@@ -53,6 +61,8 @@ export default class MovieDetailsPage extends Component {
         </p>
         <p>
           <NavLink
+            className={styles.NavLink}
+            activeClassName={styles.activeNavLink}
             to={{
               pathname: `${url}/reviews`,
               state: {

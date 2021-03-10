@@ -1,4 +1,5 @@
 import noImageAvailable from "../images/noImageAvailable.jpg";
+import styles from "./MovieCardStyled.module.css";
 
 const MovieCard = ({
   title,
@@ -10,9 +11,9 @@ const MovieCard = ({
   genres,
 }) => {
   return (
-    <div>
-      <h1> Movie: {title}</h1>
+    <div className={styles.movieCardContainer}>
       <img
+        className={styles.moviePoster}
         src={
           poster_path
             ? `https://image.tmdb.org/t/p/w300${poster_path}`
@@ -20,16 +21,25 @@ const MovieCard = ({
         }
         alt={title}
       />
-      <ul>
-        <li> Release date: {release_date}</li>
+      <h1 className={styles.title}> Movie: {title}</h1>
+      <ul className={styles.movieCardList}>
+        <li className={styles.movieCardListItem}>
+          Release date: {release_date}
+        </li>
         <li>Popularity: {popularity}</li>
         <li>Vote average: {vote_average}</li>
       </ul>
-      <h3>Genres</h3>
+      <h3 className={styles.genres}>Genres</h3>
       {genres &&
-        genres.map((genre) => <span key={genre.id}> {genre.name} </span>)}
-      <h2>Overview</h2>
-      <p> {overview ? overview : "No description available"}</p>
+        genres.map((genre) => (
+          <span className={styles.movieGenres} key={genre.id}>
+            {genre.name}
+          </span>
+        ))}
+      <h2 className={styles.overview}>Overview</h2>
+      <p className={styles.overview}>
+        {overview ? overview : "No description available"}
+      </p>
     </div>
   );
 };

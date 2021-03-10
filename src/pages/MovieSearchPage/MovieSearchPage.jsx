@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import axios from "axios";
-
 import MoviesList from "../../components/MovieList/MovieList";
-
-const BaseURL = "https://api.themoviedb.org/3/";
-const KEY = "4fbdbd8abdbcde78896e194e86813212";
+import { searchMovies } from "../../services/fetchApi";
 
 export default class MovieSearchPage extends Component {
   state = {
@@ -12,20 +8,29 @@ export default class MovieSearchPage extends Component {
     movies: [],
   };
 
-  async componentDidMount() {
-    const response = await axios.get(
-      `${BaseURL}search/movie?api_key=${KEY}&page=1&query=avatar`
-    );
-    console.log(response.data.results);
-
-    this.setState({ movies: response.data.results });
+  componentDidMount() {
+    if (this.props.location.search) {
+      const { query } = Object.fromEntries(
+        new URL(window.location).searchParams.entries()
+      );
+      searchMovies(query).then((movies) => this.setState({ movies }));
+    }
   }
 
-  onHandleSubmit = (event) => {
-    event.preventDefault();
+  componentDidUpdate(prevProps) {
+    if (prevProps.location.search !== this.props.location.search) {
+      searchMovies(this.state.query).then((movies) =>
+        this.setState({ movies })
+      );
+    }
+  }
 
-    console.log(this.state.query);
-    // this.props.onSubmit(this.state.query);
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.props.history.push({
+      pathname: this.props.location.pathname,
+      search: `?query=${this.state.query}`,
+    });
   };
 
   onHandleChange = (event) => {

@@ -1,83 +1,76 @@
-import axios from "axios";
 import React, { Component } from "react";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import Cast from "../../components/Cast";
+import MovieCard from "../../components/MovieCard/MovieCard";
 import Reviews from "../../components/Reviews";
 import routes from "../../routes";
-
-const BaseURL = "https://api.themoviedb.org/3/";
-const KEY = "4fbdbd8abdbcde78896e194e86813212";
+import { fetchData } from "../../services/fetchApi";
 
 export default class MovieDetailsPage extends Component {
   state = {
-    title: "",
-    poster_path: "",
-    release_date: "",
-    popularity: "",
-    vote_average: "",
-    overview: "",
-    genres: [],
+    movie: {},
+    cast: [],
+    reviews: [],
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     const { movieId } = this.props.match.params;
-    const response = await axios.get(
-      `${BaseURL}movie/${movieId}?api_key=${KEY}`
-    );
 
-    // console.log(response.data);
-
-    this.setState({ ...response.data });
-
-    console.log(this.props.match.url);
+    fetchData(movieId).then(([movie, cast, reviews]) => {
+      this.setState({ movie, cast, reviews });
+    });
   }
 
-  render() {
-    const { movieId } = this.props.match.params;
-    const {
-      title,
-      poster_path,
-      release_date,
-      popularity,
-      vote_average,
-      overview,
-      genres,
-    } = this.state;
+  handleGoBack = () => {
+    const { location, history } = this.props;
+    history.push(location?.state?.from || routes.home);
+  };
 
-    const { url } = this.props.match;
+  render() {
+    const { movie, cast, reviews } = this.state;
+    const { url, path } = this.props.match;
     return (
       <>
-        <h1> Movie: {title}</h1>
-        <img
-          src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-          alt={title}
-        />
-        <ul>
-          <li> Release date: {release_date}</li>
-          <li>Popularity: {popularity}</li>
-          <li>Vote average: {vote_average}</li>
-        </ul>
-        <h3>Genres</h3>
-        <ul>
-          {genres.map((genre) => (
-            <li>{genre.id}</li>
-          ))}
-        </ul>
-        <h2>Overview</h2>
-        <p>{overview}</p>
+        <button type="button" onClick={this.handleGoBack}>
+          Go back
+        </button>
+
+        <MovieCard {...movie} />
 
         <h3>More information</h3>
         <p>
-          <NavLink to={`${url}/cast`}>Cast crew</NavLink>
+          <NavLink
+            exact
+            to={{
+              pathname: `${url}/cast`,
+              state: {
+                from: this.props.location?.state?.from,
+              },
+            }}
+          >
+            Cast crew
+          </NavLink>
         </p>
-
         <p>
-          <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+          <NavLink
+            to={{
+              pathname: `${url}/reviews`,
+              state: {
+                from: this.props.location?.state?.from,
+              },
+            }}
+          >
+            Reviews
+          </NavLink>
         </p>
-        <Route path={`${routes.movieDetails}/cast`} component={Cast} />
-        <Route path={`${routes.movieDetails}/reviews`} component={Reviews} />
+        <Switch>
+          <Route path={`${path}/cast`} render={() => <Cast cast={cast} />} />
+          <Route
+            path={`${path}/reviews`}
+            render={() => <Reviews reviews={reviews} />}
+          />
+        </Switch>
       </>
     );
   }
 }
-nm;
